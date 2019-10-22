@@ -15,17 +15,8 @@ import Vue from "vue";
 
 export default Vue.extend({
   name: "TodoList",
-  data() {
-    return {
-      todos: [
-        {
-          id: 999,
-          title: "すぐに消す",
-          deadline: "2019-11-1",
-          status: "todo"
-        }
-      ]
-    };
+  props: {
+    todos: Array
   }
 });
 </script>
