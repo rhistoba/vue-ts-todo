@@ -5,6 +5,16 @@
         <div class="todo-item-title">{{ todo.title }}</div>
         <div class="todo-item-deadline">{{ todo.deadline }}</div>
         <div class="todo-item-status">{{ todo.status }}</div>
+        <div class="todo-item-button">
+          <button
+            type="button"
+            @click="
+              changeStatus(todo, todo.status === 'todo' ? 'done' : 'todo')
+            "
+          >
+            {{ changeStatusButtonText(todo) }}
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -12,12 +22,25 @@
 
 <script lang="ts">
 import Vue, { PropType } from "vue";
-import { Todo } from "@/types/todo";
+import { Todo, TodoParams } from "@/types/todo";
 
 export default Vue.extend({
   name: "TodoList",
   props: {
     todos: Array as PropType<Todo[]>
+  },
+  methods: {
+    changeStatus(todo: Todo, status: "todo" | "done"): void {
+      const params: TodoParams = { status };
+      this.$emit("update-todo", todo, params);
+    }
+  },
+  computed: {
+    changeStatusButtonText(): Function {
+      return (todo: Todo): string => {
+        return todo.status === "todo" ? "done!" : "undo";
+      };
+    }
   }
 });
 </script>
@@ -37,7 +60,10 @@ export default Vue.extend({
       width: 30%;
     }
     .todo-item-status {
-      width: 20%;
+      width: 10%;
+    }
+    .todo-item-button {
+      width: 10%;
     }
   }
 }

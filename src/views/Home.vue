@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <TodoList :todos="todos" />
+    <TodoList :todos="todos" @update-todo="updateTodo" />
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 import Vue from "vue";
 import TodoList from "@/components/TodoList.vue";
 import axios from "@/axios";
-import { Todo } from "@/types/todo";
+import { Todo, TodoParams } from "@/types/todo";
 
 export default Vue.extend({
   name: "home",
@@ -23,14 +23,29 @@ export default Vue.extend({
     };
   },
   mounted() {
-    axios
-      .get("/todos")
-      .then(response => {
-        this.todos = response.data;
-      })
-      .catch(error => {
-        alert("サーバとの通信に失敗しました。");
-      });
+    this.$_fetchTodos();
+  },
+  methods: {
+    updateTodo(todo: Todo, params: TodoParams): void {
+      axios
+        .patch(`/todos/${todo.id}`, params)
+        .then(response => {
+          this.$_fetchTodos();
+        })
+        .catch(error => {
+          alert("サーバとの通信に失敗しました。");
+        });
+    },
+    $_fetchTodos(): void {
+      axios
+        .get("/todos")
+        .then(response => {
+          this.todos = response.data;
+        })
+        .catch(error => {
+          alert("サーバとの通信に失敗しました。");
+        });
+    }
   }
 });
 </script>

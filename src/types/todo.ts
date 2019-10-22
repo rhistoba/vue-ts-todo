@@ -6,7 +6,7 @@ export type Todo = {
 };
 
 export type TodoParams = {
-  title: string;
-  deadline: Date | null;
-  status: "todo" | "done";
+  title?: string;
+  deadline?: Date | null;
+  status?: "todo" | "done";
 };
