@@ -7,3 +7,11 @@
     <router-view />
   </div>
 </template>
+
+<style scoped lang="scss">
+#app {
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
