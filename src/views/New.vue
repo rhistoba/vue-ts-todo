@@ -8,6 +8,7 @@
 import Vue from "vue";
 import TodoNew from "@/components/TodoNew.vue";
 import axios from "@/axios";
+import { TodoParams } from "@/types/todo";
 
 export default Vue.extend({
   name: "new",
@@ -15,7 +16,7 @@ export default Vue.extend({
     TodoNew
   },
   methods: {
-    addTodo(params) {
+    addTodo(params: TodoParams): void {
       axios
         .post("/todos", params)
         .then(response => {

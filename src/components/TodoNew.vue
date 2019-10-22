@@ -16,10 +16,16 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { TodoParams } from "@/types/todo";
 
 export default Vue.extend({
   name: "TodoNew",
-  data() {
+  data(): {
+    form: {
+      title: string;
+      deadline: Date | null;
+    };
+  } {
     return {
       form: {
         title: "",
@@ -28,10 +34,9 @@ export default Vue.extend({
     };
   },
   methods: {
-    submitTodo() {
-      const params = {
-        title: this.form.title,
-        deadline: this.form.deadline,
+    submitTodo(): void {
+      const params: TodoParams = {
+        ...this.form,
         status: "todo"
       };
       this.$emit("add-todo", params);

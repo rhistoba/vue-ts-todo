@@ -4,16 +4,20 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
 import TodoList from "@/components/TodoList.vue";
 import axios from "@/axios";
+import { Todo } from "@/types/todo";
 
-export default {
+export default Vue.extend({
   name: "home",
   components: {
     TodoList
   },
-  data() {
+  data(): {
+    todos: Todo[];
+  } {
     return {
       todos: []
     };
@@ -28,5 +32,5 @@ export default {
         alert("サーバとの通信に失敗しました。");
       });
   }
-};
+});
 </script>

@@ -11,12 +11,13 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue, { PropType } from "vue";
+import { Todo } from "@/types/todo";
 
 export default Vue.extend({
   name: "TodoList",
   props: {
-    todos: Array
+    todos: Array as PropType<Todo[]>
   }
 });
 </script>
